@@ -1,0 +1,11 @@
+# Placeholder for calm breathing audio
+# In a real implementation, this would be a 2-minute audio file with:
+# - Gentle ambient sounds (nature, soft music)
+# - Breathing cues (inhale/exhale sounds)
+# - Calming background music
+# 
+# For the demo, the app will work without this file.
+# To add real audio:
+# 1. Replace this file with an actual MP3 audio file
+# 2. Ensure it's 2+ minutes long for the breathing exercise
+# 3. Keep the filename as calm-breath.mp3

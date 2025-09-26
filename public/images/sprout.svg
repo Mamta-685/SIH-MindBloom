@@ -1,0 +1,17 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sprout stem -->
+  <path d="M48 80C48 80 48 60 48 50C48 45 48 40 48 35C48 30 48 25 48 20C48 15 48 10 48 5" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Left leaf -->
+  <path d="M48 25C40 20 35 15 30 10C25 15 20 20 15 25C20 30 25 35 30 40C35 35 40 30 45 25" fill="#16a34a" stroke="#15803d" stroke-width="1"/>
+  
+  <!-- Right leaf -->
+  <path d="M48 25C56 20 61 15 66 10C71 15 76 20 81 25C76 30 71 35 66 40C61 35 56 30 51 25" fill="#16a34a" stroke="#15803d" stroke-width="1"/>
+  
+  <!-- Top leaves -->
+  <path d="M48 15C45 10 42 5 40 0C38 5 35 10 32 15C35 20 38 25 40 30C42 25 45 20 48 15" fill="#22c55e" stroke="#16a34a" stroke-width="1"/>
+  <path d="M48 15C51 10 54 5 56 0C58 5 61 10 64 15C61 20 58 25 56 30C54 25 51 20 48 15" fill="#22c55e" stroke="#16a34a" stroke-width="1"/>
+  
+  <!-- Root -->
+  <path d="M48 80C45 85 40 88 35 90C30 88 25 85 22 80C25 75 30 70 35 68C40 70 45 75 48 80" fill="#a3a3a3" stroke="#737373" stroke-width="1"/>
+</svg>
