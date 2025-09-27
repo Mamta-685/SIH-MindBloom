@@ -1,0 +1,150 @@
+/* Container */
+.breathing-container {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(to bottom, #d0f0fd, #f0e6fd);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  font-family: 'Helvetica', sans-serif;
+}
+
+/* Header */
+.header h1 {
+  font-size: 2.5rem;
+  color: #4b5563;
+}
+.header p {
+  color: #6b7280;
+}
+
+/* Timer */
+.timer-card {
+  background: #ffffffcc;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.timer {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #10b981;
+}
+.timer-bar {
+  background: #e5e7eb;
+  height: 6px;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+}
+.timer-progress {
+  background: #10b981;
+  height: 6px;
+  border-radius: 4px;
+}
+
+/* Breathing Circle */
+.circle-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.breathing-circle {
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.circle-content {
+  text-align: center;
+}
+.circle-content .emoji {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+.circle-content .instruction {
+  font-size: 1rem;
+}
+
+/* Phase Gradients */
+.inhale-gradient { background: linear-gradient(to top right, #6ee7b7, #3b82f6); }
+.hold-gradient { background: linear-gradient(to top right, #c4b5fd, #f472b6); }
+.exhale-gradient { background: linear-gradient(to top right, #fbbf24, #6ee7b7); }
+.rest-gradient { background: linear-gradient(to top right, #a5b4fc, #c7d2fe); }
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.btn-start { background: #10b981; color: white; }
+.btn-pause { background: #fbbf24; color: white; }
+.btn-stop { background: #ef4444; color: white; }
+
+/* Audio Toggle */
+.audio-toggle .audio-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+.audio-btn.on { background: #bbf7d0; color: #047857; }
+.audio-btn.off { background: #e5e7eb; color: #6b7280; }
+
+/* Instructions Card */
+.instructions-card {
+  background: #ffffffcc;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 360px;
+  text-align: left;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.instructions-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+.instructions-card ul { list-style: disc; padding-left: 1.5rem; color: #374151; }
+.instructions-card li { margin-bottom: 0.25rem; }
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 50;
+}
+.modal-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.modal-emoji { font-size: 3rem; margin-bottom: 1rem; }
+.modal-buttons { display: flex; flex-direction: column; gap: 0.5rem; }

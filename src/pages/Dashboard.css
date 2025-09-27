@@ -1,0 +1,198 @@
+/* General Layout */
+.dashboard {
+  min-height: 100vh;
+  padding: 20px;
+  background: #fafafa;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2e2e2e;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Mood Section */
+.mood-section {
+  text-align: center;
+}
+
+.mood-circle {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: linear-gradient(to bottom right, #ffeb3b, #ff9800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mood-text {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Tree Section */
+.tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tree-link {
+  font-size: 14px;
+  color: #2e7d32;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.tree-visual {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.tree-trunk {
+  width: 20px;
+  height: 60px;
+  background: #8d6e63;
+  border-radius: 10px;
+}
+
+.tree-leaves {
+  width: 40px;
+  height: 40px;
+  background: #4caf50;
+  border-radius: 50%;
+  margin-left: -30px;
+}
+
+.tree-progress {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Quick Actions */
+.actions {
+    width: 100%;
+    /* background-color: #2e7d32; */
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 15px;
+}
+
+.actions h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.action-buttons{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-card .icon {
+  font-size: 28px;
+  margin-right: 12px;
+}
+
+.action-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  
+}
+
+.action-card p {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* Action Colors */
+.breathe {
+  background: linear-gradient(to right, #66bb6a, #7e57c2);
+}
+
+.journal {
+  background: linear-gradient(to right, #ab47bc, #ff7043);
+}
+
+.connect {
+  background: linear-gradient(to right, #ff7043, #66bb6a);
+}
+
+/* Recent Moods */
+.recent-moods {
+    margin-bottom: 10px;
+    height: 40px;
+    padding: 15px;
+    background-color: turquoise;
+}
+
+.recent-moods h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.mood-list {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.mood-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mood-circle.small {
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+}
+
+.mood-date {
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}

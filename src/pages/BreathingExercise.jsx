@@ -3,26 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { saveProgress } from '../utils/persistence';
+import './BreathingExercise.css';
 
 const BreathingExercise = () => {
   const navigate = useNavigate();
   const { addLeaf, completeActivity, progress } = useApp();
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [phase, setPhase] = useState('inhale'); // inhale, hold, exhale, rest
-  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes in seconds
+  const [phase, setPhase] = useState('inhale'); 
+  const [timeLeft, setTimeLeft] = useState(120); 
   const [isCompleted, setIsCompleted] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [breathCount, setBreathCount] = useState(0);
-  
-  const audioRef = useRef(null);
+
   const intervalRef = useRef(null);
 
   const phases = {
-    inhale: { duration: 4000, instruction: 'Breathe in slowly...', color: 'from-mint-400 to-lavender-400' },
-    hold: { duration: 2000, instruction: 'Hold your breath...', color: 'from-lavender-400 to-peach-400' },
-    exhale: { duration: 6000, instruction: 'Breathe out gently...', color: 'from-peach-400 to-mint-400' },
-    rest: { duration: 2000, instruction: 'Rest and relax...', color: 'from-mint-300 to-lavender-300' }
+    inhale: { duration: 4000, instruction: 'Breathe in slowly...', color: 'inhale-gradient' },
+    hold: { duration: 2000, instruction: 'Hold your breath...', color: 'hold-gradient' },
+    exhale: { duration: 6000, instruction: 'Breathe out gently...', color: 'exhale-gradient' },
+    rest: { duration: 2000, instruction: 'Rest and relax...', color: 'rest-gradient' }
   };
 
   useEffect(() => {
@@ -33,11 +33,7 @@ const BreathingExercise = () => {
           const currentIndex = phaseOrder.indexOf(prevPhase);
           const nextIndex = (currentIndex + 1) % phaseOrder.length;
           const nextPhase = phaseOrder[nextIndex];
-          
-          if (nextPhase === 'inhale') {
-            setBreathCount(prev => prev + 1);
-          }
-          
+          if (nextPhase === 'inhale') setBreathCount(prev => prev + 1);
           return nextPhase;
         });
       }, phases[phase].duration);
@@ -63,15 +59,8 @@ const BreathingExercise = () => {
     };
   }, [isActive, isPaused, phase]);
 
-  const handleStart = () => {
-    setIsActive(true);
-    setIsPaused(false);
-  };
-
-  const handlePause = () => {
-    setIsPaused(!isPaused);
-  };
-
+  const handleStart = () => { setIsActive(true); setIsPaused(false); };
+  const handlePause = () => { setIsPaused(!isPaused); };
   const handleStop = () => {
     setIsActive(false);
     setIsPaused(false);
@@ -84,12 +73,8 @@ const BreathingExercise = () => {
   const handleComplete = async () => {
     setIsActive(false);
     setIsCompleted(true);
-    
-    // Add leaf and complete activity
     addLeaf();
     await completeActivity('breathing_exercise');
-    
-    // Save progress
     try {
       await saveProgress({
         ...progress,
@@ -108,186 +93,88 @@ const BreathingExercise = () => {
   };
 
   const getCircleSize = () => {
-    if (!isActive) return 1;
-    
     switch (phase) {
-      case 'inhale':
-        return 1.2;
-      case 'hold':
-        return 1.2;
-      case 'exhale':
-        return 0.8;
-      case 'rest':
-        return 1;
-      default:
-        return 1;
+      case 'inhale': return 1.2;
+      case 'hold': return 1.2;
+      case 'exhale': return 0.8;
+      case 'rest': return 1;
+      default: return 1;
     }
   };
 
   return (
-    <div className="min-h-screen px-4 py-6 pb-20">
+    <div className="breathing-container">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-8"
-      >
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          Breathing Exercise
-        </h1>
-        <p className="text-gray-600">
-          Take a moment to center yourself
-        </p>
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="header">
+        <h1>Breathing Exercise</h1>
+        <p>Take a moment to center yourself</p>
       </motion.div>
 
       {/* Timer */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="card text-center mb-6"
-      >
-        <div className="text-4xl font-bold text-mint-600 mb-2">
-          {formatTime(timeLeft)}
+      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="timer-card">
+        <div className="timer">{formatTime(timeLeft)}</div>
+        <div className="timer-bar">
+          <motion.div className="timer-progress" style={{ width: `${(timeLeft / 120) * 100}%` }} />
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <motion.div
-            className="bg-mint-500 h-2 rounded-full"
-            initial={{ width: '100%' }}
-            animate={{ width: `${(timeLeft / 120) * 100}%` }}
-            transition={{ duration: 1 }}
-          />
-        </div>
-        <p className="text-sm text-gray-600 mt-2">
-          {breathCount} breaths completed
-        </p>
+        <p>{breathCount} breaths completed</p>
       </motion.div>
 
       {/* Breathing Circle */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex justify-center mb-8"
-      >
+      <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="circle-wrapper">
         <motion.div
-          className={`w-64 h-64 rounded-full bg-gradient-to-br ${phases[phase].color} flex items-center justify-center text-white text-2xl font-bold shadow-2xl`}
-          animate={{
-            scale: getCircleSize(),
-          }}
-          transition={{
-            duration: phases[phase].duration / 1000,
-            ease: phase === 'inhale' ? 'easeOut' : phase === 'exhale' ? 'easeIn' : 'linear'
-          }}
+          className={`breathing-circle ${phases[phase].color}`}
+          animate={{ scale: getCircleSize() }}
+          transition={{ duration: phases[phase].duration / 1000 }}
         >
-          <div className="text-center">
-            <div className="text-6xl mb-2">🌬️</div>
-            <div className="text-lg font-medium">
-              {phases[phase].instruction}
-            </div>
+          <div className="circle-content">
+            <div className="emoji">🌬️</div>
+            <div className="instruction">{phases[phase].instruction}</div>
           </div>
         </motion.div>
       </motion.div>
 
       {/* Controls */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex justify-center space-x-4 mb-6"
-      >
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="controls">
         {!isActive ? (
-          <button
-            onClick={handleStart}
-            className="btn-primary text-lg px-8 py-4"
-          >
-            Start Breathing
-          </button>
+          <button onClick={handleStart} className="btn btn-start">Start Breathing</button>
         ) : (
           <>
-            <button
-              onClick={handlePause}
-              className="btn-secondary text-lg px-6 py-4"
-            >
-              {isPaused ? 'Resume' : 'Pause'}
-            </button>
-            <button
-              onClick={handleStop}
-              className="btn-ghost text-lg px-6 py-4"
-            >
-              Stop
-            </button>
+            <button onClick={handlePause} className="btn btn-pause">{isPaused ? 'Resume' : 'Pause'}</button>
+            <button onClick={handleStop} className="btn btn-stop">Stop</button>
           </>
         )}
       </motion.div>
 
       {/* Audio Toggle */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex justify-center mb-6"
-      >
-        <button
-          onClick={() => setAudioEnabled(!audioEnabled)}
-          className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-            audioEnabled ? 'bg-mint-100 text-mint-700' : 'bg-gray-100 text-gray-500'
-          }`}
-        >
-          <span className="text-xl">{audioEnabled ? '🔊' : '🔇'}</span>
-          <span className="text-sm font-medium">
-            {audioEnabled ? 'Audio On' : 'Audio Off'}
-          </span>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="audio-toggle">
+        <button onClick={() => setAudioEnabled(!audioEnabled)} className={`audio-btn ${audioEnabled ? 'on' : 'off'}`}>
+          <span>{audioEnabled ? '🔊' : '🔇'}</span>
+          <span>{audioEnabled ? 'Audio On' : 'Audio Off'}</span>
         </button>
       </motion.div>
 
       {/* Instructions */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="card text-center"
-      >
-        <h3 className="text-lg font-semibold mb-4">How to Breathe</h3>
-        <div className="space-y-2 text-sm text-gray-600">
-          <p>• Find a comfortable position</p>
-          <p>• Follow the circle's rhythm</p>
-          <p>• Breathe naturally and gently</p>
-          <p>• Focus on the present moment</p>
-        </div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="instructions-card">
+        <h3>How to Breathe</h3>
+        <ul>
+          <li>Find a comfortable position</li>
+          <li>Follow the circle's rhythm</li>
+          <li>Breathe naturally and gently</li>
+          <li>Focus on the present moment</li>
+        </ul>
       </motion.div>
 
       {/* Completion Modal */}
       <AnimatePresence>
         {isCompleted && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="card text-center max-w-sm w-full"
-            >
-              <div className="text-6xl mb-4">🌿</div>
-              <h2 className="text-2xl font-bold text-mint-600 mb-4">
-                Great Job!
-              </h2>
-              <p className="text-gray-600 mb-6">
-                You've completed your breathing exercise. A new leaf has grown on your tree!
-              </p>
-              <div className="space-y-3">
-                <button
-                  onClick={() => navigate('/growth')}
-                  className="btn-primary w-full"
-                >
-                  View Your Tree
-                </button>
-                <button
-                  onClick={() => navigate('/dashboard')}
-                  className="btn-ghost w-full"
-                >
-                  Back to Dashboard
-                </button>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-backdrop">
+            <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }} className="modal-card">
+              <div className="modal-emoji">🌿</div>
+              <h2>Great Job!</h2>
+              <p>You've completed your breathing exercise. A new leaf has grown on your tree!</p>
+              <div className="modal-buttons">
+                <button onClick={() => navigate('/growth')} className="btn btn-start w-full">View Your Tree</button>
+                <button onClick={() => navigate('/dashboard')} className="btn btn-stop w-full">Back to Dashboard</button>
               </div>
             </motion.div>
           </motion.div>
